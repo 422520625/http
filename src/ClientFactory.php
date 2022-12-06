@@ -2,10 +2,14 @@
 
 namespace Trigold\Http;
 
+use Exception;
 use Trigold\Http\Contracts\HttpClient;
 
 class ClientFactory
 {
+    /**
+     * @throws Exception
+     */
     public static function create(string $driver = 'guzzle', array $config = []): HttpClient
     {
         $driver = ucfirst($driver);
