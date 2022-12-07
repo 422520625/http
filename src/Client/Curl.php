@@ -2,9 +2,7 @@
 
 namespace Trigold\Http\Client;
 
-use GuzzleHttp\Psr7\Request;
 use Trigold\Http\Contracts\HttpClient;
-use const sdk\cdiscount\tokenUrl;
 
 class Curl implements HttpClient
 {
