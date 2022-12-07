@@ -58,17 +58,14 @@ class Curl implements HttpClient
 
         unset($options['headers'], $options['body']);
 
-
         $http_build_query = http_build_query($options);
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
         curl_setopt($ch, CURLOPT_URL, $this->baseUri.$uri);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->buildHeader());
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_COOKIEFILE, '');
+        curl_setopt($ch, CURLOPT_HEADER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->buildHeader());
+        curl_setopt($ch, CURLOPT_TIMEOUT, $this->timeout);
 
         switch ($method) {
             case 'GET':
@@ -89,11 +86,14 @@ class Curl implements HttpClient
         }
         $response = curl_exec($ch);
         $headerSize = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-
+        $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $headers = substr($response, 0, $headerSize) ?? '';
+        $headers = $this->analysisHeader($headers);
+        curl_close($ch);
         return [
-            'header'   => substr($response, 0, $headerSize) ?? '',
+            'header'   => $headers,
             'body'     => substr($response, $headerSize) ?? '',
-            'httpCode' => curl_getinfo($ch, CURLINFO_HTTP_CODE),
+            'httpCode' => $code,
         ];
     }
 
@@ -123,6 +123,20 @@ class Curl implements HttpClient
             $headers[] = "$name:$header";
         }
         return $headers;
+    }
+
+    protected function analysisHeader($headers): array
+    {
+        if (is_string($headers)) {
+            $headers = array_filter(array_filter(explode("\n", $headers), 'trim'));
+            unset($headers[0]);
+        }
+        $analysis = [];
+        foreach ($headers as $header) {
+            [$name, $value] = explode(': ', $header);
+            $analysis[$name] = $value;
+        }
+        return $analysis;
     }
 
     public function setHeaders($headers)
