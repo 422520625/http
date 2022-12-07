@@ -138,4 +138,9 @@ class Guzzle implements HttpClient
             'httpCode' => $response->getStatusCode(),
         ];
     }
+
+    public function __call($name, $arguments)
+    {
+        return $this->client->$name(...$arguments);
+    }
 }

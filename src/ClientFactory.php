@@ -7,8 +7,6 @@ use Trigold\Http\Contracts\HttpClient;
 
 class ClientFactory
 {
-    const GUZZLE = 'guzzle';
-
     /**
      * @param  array   $config
      * @param  string  $driver
