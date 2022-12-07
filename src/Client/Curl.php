@@ -12,7 +12,6 @@ class Curl implements HttpClient
     protected string $baseUri;
     protected int $timeout;
     protected array $options;
-    private array $headerNames;
 
     public function __construct(string $baseUri = '', int $timeout = 2, array $options = [])
     {
