@@ -4,8 +4,8 @@
     "require": {
         "php": "^8.1",
         "guzzlehttp/guzzle": "^7.2",
-        "Illuminate/Support": "^9.0",
-        "Illuminate/Contracts": "^9.0"
+        "illuminate/support": "^9.0",
+        "illuminate/contracts": "^9.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
