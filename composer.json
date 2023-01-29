@@ -28,10 +28,7 @@
         "laravel": {
             "providers": [
                 "Trigold\\Http\\HttpServiceProvider"
-            ],
-            "aliases": {
-                "Http": "Trigold\\Http\\Facades\\Http"
-            }
+            ]
         }
     }
 }
