@@ -1,10 +1,10 @@
 <?php
 
-namespace Trigold\Udesk;
+namespace Trigold\Http;
 
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
-use Trigold\Udesk\Http\Guzzle;
+use Trigold\Http\Client\Guzzle;
 
 class HttpServiceProvider extends ServiceProvider implements DeferrableProvider
 {

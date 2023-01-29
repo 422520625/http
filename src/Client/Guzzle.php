@@ -1,5 +1,6 @@
 <?php
 namespace Trigold\Http\Client;
+
 use GuzzleHttp\Client;
 use Trigold\Http\Contracts\HttpClient;
 use GuzzleHttp\Exception\ClientException;
@@ -7,7 +8,6 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class Guzzle implements HttpClient
 {
-
     protected Client $client;
 
     protected array $options;
